@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -19,7 +21,6 @@ module.exports = {
     open: true,
   },
   entry: ["@babel/polyfill", path.resolve(__dirname, 'src', 'index.tsx')],
-  // entry: [path.resolve(__dirname, 'src', 'index.tsx')],
   output: {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
@@ -35,7 +36,13 @@ module.exports = {
       extensions: ['js', 'jsx', 'ts', 'tsx'],
       emitWarning: true,
       failOnError: true,
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/assets/img", to: "img" },
+      ],
+    }),
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
@@ -60,38 +67,17 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        use: [
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-              },
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              webp: {
-                quality: 75
-              }
-            }
-          }
-        ],
-        type: 'asset/resource',
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+            limit: 100000,
+            name: 'images/[name].[ext]',
+
+        },
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'fonts/[name][ext]'
-        }
+        type: 'asset/resource'
       },
       {
         test: /\.(?:js|mjs|cjs)$/,

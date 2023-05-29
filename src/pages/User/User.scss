@@ -1,0 +1,39 @@
+@import '../../styles/utils/vars';
+@import '../../styles/utils/mixins';
+
+.user {
+  &__sign-out {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__icon {
+    width: 40px;
+  }
+
+  &__wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid $primaryColor
+  }
+
+  &__input-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+  }
+  
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__btns {
+    align-self: flex-end;
+    @include flexAlignCenter(15px);
+  }
+}

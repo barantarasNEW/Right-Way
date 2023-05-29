@@ -1,0 +1,35 @@
+.card {
+  width: 50%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #fff;
+
+  &__img {
+    width: 120px;
+    height: 70px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__descriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__description {
+    display: flex;
+    gap: 65px;
+  }
+
+  &__btn {
+    padding: 14px 20px;
+    font-size: 20px;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+}

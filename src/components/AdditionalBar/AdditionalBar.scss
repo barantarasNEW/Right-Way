@@ -1,0 +1,16 @@
+@import '../../styles/utils/vars';
+@import '../../styles/utils/mixins';
+
+.additional-bar {
+  &__list {
+    @include flexAlignCenter(7px);
+  }
+
+  &__link {
+    padding: $linkPadding;
+  }
+
+  &__icon {
+    @include square(25px);
+  }
+}

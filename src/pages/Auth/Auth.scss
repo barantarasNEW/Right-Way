@@ -1,0 +1,21 @@
+@import '../../styles/utils/mixins';
+
+.auth {
+  @include square(100%);
+  @include backgroundImageSett;
+  position: relative;
+
+  &__wrapper {
+    @include flexAlignCenter(15px);
+    flex-direction: column;
+    @include positionCenter;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+  }
+
+  &__sign-link {
+    font-size: 15px;
+  }
+}

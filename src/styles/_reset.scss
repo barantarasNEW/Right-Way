@@ -14,11 +14,34 @@ ul {
 }
 
 img {
-  max-width: 100%;
+  display: block;
+  width: 100%;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 button {
   border: none;
-  cursor: pointer;
   user-select: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input {
+  display: block;
+  border: none;
+  outline: none;
+}
+
+::before,
+::after {
+  display: block;
+}
+
+:active {
+  transition: none;
 }

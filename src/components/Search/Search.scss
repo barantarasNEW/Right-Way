@@ -1,0 +1,29 @@
+@import '../../styles/utils/vars';
+@import '../../styles/utils/mixins';
+
+.search {
+  @include square(100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba($color: $primaryColor, $alpha: 0.8);
+  border-radius: 15px;
+  overflow: hidden;
+
+  &__input {
+    @include square(100%);
+    padding: 5px 20px;
+    font-size: 18px;
+  }
+
+  &__btn {
+    width: 40px;
+    height: 100%;
+    background-color: $secondaryColor;
+    @include flexCenter;
+  }
+
+  &__icon {
+    @include square(20px);
+  }
+}

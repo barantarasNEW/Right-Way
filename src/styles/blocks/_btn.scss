@@ -1,0 +1,15 @@
+@import '../utils/vars';
+
+.btn {
+  height: 40px;
+  width: 130px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: $primaryColor;
+  border-radius: 50px;
+
+  &--dis {
+    background-color: $secondaryColor;
+    cursor: auto;
+  }
+}

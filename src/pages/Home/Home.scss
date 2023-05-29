@@ -1,0 +1,21 @@
+@import '../../styles/utils/vars';
+@import '../../styles/utils/mixins';
+
+.home {
+  @include positionCenter;
+
+  &__wrapper {
+    height: 100%;
+    @include flexAlignCenter(15px);
+    flex-direction: column;
+  }
+
+  &__subtitle {
+    font-size: 32px;
+  }
+
+  &__btn {
+    padding: 8px 15px;
+    border: 2px solid $primaryColor;
+  }
+}

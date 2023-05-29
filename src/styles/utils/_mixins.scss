@@ -1,1 +1,29 @@
-//not empty;
+@mixin square($_size) {
+  width: $_size;
+  height: $_size;
+}
+
+@mixin flexAlignCenter($_gap) {
+  display: flex;
+  align-items: center;
+  gap: $_gap;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin positionCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin backgroundImageSett {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; 
+}

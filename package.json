@@ -1,5 +1,9 @@
 {
+  "homepage": ".",
   "name": "webpack-template",
+  "repository": {
+    "url": "https://github.com/barantarasNEW/Right-Way.git"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +11,9 @@
     "start": "webpack server",
     "dev": "webpack",
     "build": "webpack --node-env=production",
-    "clear": "rd /s /q dist"
+    "clear": "rd /s /q dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +39,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-webpack-plugin": "^4.0.1",
     "file-loader": "^6.2.0",
+    "gh-pages": "^5.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.1",
     "image-webpack-loader": "^8.1.0",

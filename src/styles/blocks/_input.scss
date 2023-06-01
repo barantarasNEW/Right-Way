@@ -4,13 +4,12 @@
   width: 380px;
   height: 40px;
   padding: 10px 20px;
-  font-size: 18px;
   letter-spacing: 1px;
   border: 1px solid transparent;
   border-radius: 50px;
-  color: $textColor;
+  background-color: $primaryInputBG;
 
-  &--dis {
+  &:disabled {
     background-color: $secondaryColor;
     pointer-events: none;
   }

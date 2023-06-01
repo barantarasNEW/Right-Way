@@ -3,12 +3,12 @@
 .btn {
   height: 40px;
   width: 130px;
-  font-size: 15px;
-  font-weight: 500;
-  background-color: $primaryColor;
+  font-size: 18px;
+  color: #000;
   border-radius: 50px;
+  background-color: $primaryColor;
 
-  &--dis {
+  &:disabled {
     background-color: $secondaryColor;
     cursor: auto;
   }

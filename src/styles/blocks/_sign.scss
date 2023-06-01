@@ -1,0 +1,10 @@
+@import '../utils/mixins';
+
+.sign {
+  @include flexAlignCenter(15px);
+  flex-direction: column;
+
+  &__link {
+    font-size: 15px;
+  }
+}

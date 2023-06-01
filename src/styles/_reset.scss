@@ -27,6 +27,8 @@ a {
 button {
   border: none;
   user-select: none;
+  color: inherit;
+  font-size: inherit;
   background-color: transparent;
   cursor: pointer;
 }

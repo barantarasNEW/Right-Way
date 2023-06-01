@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/user";
-import modalReducer from "../features/modal";
+import countriesName from "../features/countriesName";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    modal: modalReducer,
+    countriesName: countriesName,
   }
 });
 

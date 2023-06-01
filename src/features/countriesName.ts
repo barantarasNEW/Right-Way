@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCountriesName } from "../api/fetchCountriesName";
+import { fetchCountriesName } from "../api/getCountriesName";
 
 interface countriesName {
   names: any[];

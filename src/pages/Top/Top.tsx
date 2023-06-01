@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import './Top.scss';
 import { Country } from "../../types/Country";
 import { topCountries } from "./constants";
-import { fetchCountry } from "../../api/fetchCountry";
+import { fetchCountry } from "../../api/getCountry";
 import Loader from "../../components/Loader/Loader";
 import { Card } from "../../components/Card/Card";
+
+const FIELDS = "name,capital,population,region,flags";
 
 const Top = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchingCountry = async () => {
-    const result = topCountries.map(country => fetchCountry(country));
+    const result = topCountries.map(country => fetchCountry(country, FIELDS));
     const response = await Promise.all(result);
 
     setCountries(response.flat());

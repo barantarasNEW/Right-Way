@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import random from 'lodash.random';
 import './Random.scss';
 
-import { fetchCountry } from "../../api/fetchCountry";
+import { fetchCountry } from "../../api/getCountry";
 import { useAppSelector } from "../../hooks/useRedux";
 import { Country } from "../../types/Country";
 
@@ -15,10 +15,12 @@ const Random = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   
+  const FIELDS = "name,capital,population,region,flags";
+
   const fetchingCountry = (name: string) => {
     setLoading(true);
 
-    fetchCountry(name)
+    fetchCountry(name, FIELDS)
       .then(res => {
         const { region, capital, flags, population } = res[0];
 

@@ -5,6 +5,8 @@ import store from './redux/store';
 import './styles/style.scss';
 import App from './App';
 
+console.log(process.env.API_URL);
+
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <HashRouter>

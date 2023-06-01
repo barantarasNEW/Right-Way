@@ -4,7 +4,9 @@ import './Country.scss';
 import { Country as CountryType } from "../../types/Country";
 import Loader from "../../components/Loader/Loader";
 import { useParams } from "react-router";
-import { fetchCountry } from "../../api/fetchCountry";
+import { fetchCountry } from "../../api/getCountry";
+
+const FIELDS = "name,capital,population,region,flags";
 
 const Country = () => {
   const [country, setCountry] = useState<CountryType | null>(null);
@@ -15,7 +17,7 @@ const Country = () => {
     if (id) {
       setLoading(true);
 
-      fetchCountry(id)
+      fetchCountry(id, FIELDS)
         .then((res: any) => {
           setCountry({ ...res[0], name: res[0].name.common, flag: res[0].flags.svg });
         }).finally(() => setLoading(false));

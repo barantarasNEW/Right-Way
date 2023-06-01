@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import './Quiz.scss';
 import { useAppSelector } from "../../hooks/useRedux";
 import random from "lodash.random";
-import { fetchCountry } from "../../api/fetchCountry";
+import { fetchCountry } from "../../api/getCountry";
 import { Country } from "../../types/Country";
 import Loader from "../../components/Loader/Loader";
 
@@ -14,6 +14,8 @@ const Quiz = () => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [isInCorrect, setIsIncorrect] = useState(false);
 
+  const FIELDS = "name,flags";
+  
   const fetchingQuizCountry = async () => {
     setLoading(true);
 
@@ -23,7 +25,7 @@ const Quiz = () => {
       resultName.push(names[random(names.length)].name.common);
     }
 
-    const result = resultName.map(country => fetchCountry(country));
+    const result = resultName.map(country => fetchCountry(country, FIELDS));
     const response = await Promise.all(result);
     const data: Country[] = [];
 

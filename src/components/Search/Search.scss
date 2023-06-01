@@ -6,24 +6,40 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba($color: $primaryColor, $alpha: 0.8);
-  border-radius: 15px;
-  overflow: hidden;
+  background-color: $primaryInputBG;
+  position: relative;
 
   &__input {
     @include square(100%);
     padding: 5px 20px;
-    font-size: 18px;
   }
 
   &__btn {
     width: 40px;
     height: 100%;
-    background-color: $secondaryColor;
     @include flexCenter;
+    background-color: $secondaryColor;
   }
 
   &__icon {
     @include square(20px);
+  }
+
+  &__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 5;
+
+    min-width: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  &__link {
+    padding: 5px;
+    background-color: $secondaryColor;
+    color: #000;
+    font-size: 15px;
   }
 }

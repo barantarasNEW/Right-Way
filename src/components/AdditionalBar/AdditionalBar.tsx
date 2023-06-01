@@ -1,13 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import './AdditionalBar.scss';
+
 import { availableLinksForSearch } from "./constants";
 
 type Props = {
   isSearch: boolean;
-  onChangeSearch: () => void;
+  onChange: () => void;
 };
 
-const AdditionalBar: React.FC<Props> = ({ onChangeSearch, isSearch }) => {
+const AdditionalBar: React.FC<Props> = ({ onChange, isSearch }) => {
   const location = useLocation().pathname;
   const isSearchAvailable = availableLinksForSearch.includes(location);
 
@@ -20,17 +21,23 @@ const AdditionalBar: React.FC<Props> = ({ onChangeSearch, isSearch }) => {
         >
           <button
             className="additional-bar__link"
-            onClick={onChangeSearch}
+            onClick={onChange}
           >
-            {isSearch
-              ? <img className="additional-bar__icon" src="./img/svg/cancel.svg" alt="icon" />
-              : <img className="additional-bar__icon" src="./img/svg/search.svg" alt="icon" />}
+            <img
+              className="additional-bar__icon"
+              src={`./img/svg/${isSearch ? "cancel.svg" : "search.svg"}`}
+              alt="icon"
+            />
           </button>
         </li>
 
         <li className="additional-bar__item">
           <Link to="/user" className="additional-bar__link">
-            <img className="additional-bar__icon" src="./img/svg/user.svg" alt="icon" />
+            <img
+              className="additional-bar__icon"
+              src="./img/svg/user.svg"
+              alt="icon"
+            />
           </Link>
         </li>
       </ul>

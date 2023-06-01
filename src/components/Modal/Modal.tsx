@@ -1,25 +1,37 @@
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import './Modal.scss';
-import { useAppSelector } from '../../hooks/useRedux';
-import { selectModal, setModal } from '../../features/modal';
-import { useDispatch } from 'react-redux';
 
-const Modal = () => {
-  const modal = useAppSelector(selectModal).modal;
-  const dispatch = useDispatch();
+type Props = {
+  title: string;
+};
 
-  if (!modal.length) {
+const Modal: React.FC<Props> = ({ title }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsOpen(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [setIsOpen]);
+
+  const onClick = () => setIsOpen(false);
+
+  if (!isOpen) {
     return null;
   }
-
-  setTimeout(() => dispatch(setModal("")), 1000);
 
   return (
     <>
       {createPortal(
-        <div className="modal">
-          <div className="modal__wrapper">
-            {modal}
+        <div className="modal" onClick={onClick}>
+          <div
+            className="modal__wrapper"
+            onClick={e => e.stopPropagation()}
+          >
+            {title}
           </div>
         </div>,
         document.getElementById('portal-root') as HTMLElement

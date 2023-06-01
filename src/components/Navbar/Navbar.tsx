@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import './Navbar.scss';
+
 import { links } from "./constants";
 
 const Navbar = () => {

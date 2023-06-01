@@ -1,0 +1,33 @@
+.quiz {
+    &__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  &__flag {
+    height: 100px;
+  }
+
+  &__correct,
+  &__in-correct {
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid greenyellow;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  &__in-correct {
+    border: 1px solid red;
+  }
+}

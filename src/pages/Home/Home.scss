@@ -10,6 +10,10 @@
     flex-direction: column;
   }
 
+  &__title {
+    text-transform: capitalize;
+  }
+
   &__subtitle {
     font-size: 32px;
   }

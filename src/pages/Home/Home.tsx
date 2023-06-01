@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import './Home.scss';
+
 import { useAppSelector } from '../../hooks/useRedux';
-import { selectUser } from '../../features/user';
 
 const Home = () => {
-  const userName = useAppSelector(selectUser);
+  const userName = useAppSelector(state => state.user);
 
   return (
     <section className="home">
       <div className="container">
         <div className="home__wrapper">
-          <h1 className="title">
+          <h1 className="title home__title">
             {`Welcome, ${userName.user.firstName}`}
           </h1>
   

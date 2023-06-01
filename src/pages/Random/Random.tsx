@@ -1,28 +1,70 @@
 import { useCallback, useEffect, useState } from "react";
-import { Card } from "../../components/Card/Card";
+import random from 'lodash.random';
+import './Random.scss';
+
+import { fetchCountry } from "../../api/fetchCountry";
+import { useAppSelector } from "../../hooks/useRedux";
 import { Country } from "../../types/Country";
 
-const API_KEY = "HOBScV0zlw9LgeWNnRVGWPDPzut7iW0CAvfCoKcs";
+import { Card } from "../../components/Card/Card";
+import Loader from '../../components/Loader/Loader';
 
 const Random = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const { names } = useAppSelector(state => state.countriesName);
+  const [country, setCountry] = useState<Country | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  
+  const fetchingCountry = (name: string) => {
+    setLoading(true);
+
+    fetchCountry(name)
+      .then(res => {
+        const { region, capital, flags, population } = res[0];
+
+        setCountry({
+          name,
+          region,
+          capital,
+          flag: flags.svg,
+          population
+        });
+      }).catch(() => {
+        setError(true);
+      }).finally(() => setLoading(false));
+  };
 
   useEffect(() => {
-    fetch(`https://countryapi.io/api/all?apikey=${API_KEY}`)
-      .then(res => res.json())
-      .then(res => setCountries(res));
+    if (names.length) {
+      onClick();
+    }
+  }, []);
+ 
+  const onClick = useCallback(() => {
+    const name = names[random(names.length - 1)].name.common;
+
+    fetchingCountry(name);
   }, []);
 
-  const onClickRandom = useCallback(() => {
-    // const random = Math.floor(Math.random() * countries.length);
-
-    console.log(countries);
-  }, [countries]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className="random">
       <div className="container">
-        <Card country={{ name: 'fd', region: 'f', capital: 'g', flag: '', population: 234 }} onClick={onClickRandom} />
+        <div className="random__wrapper">
+          {country && !error && (
+            <Card country={country} />
+          )}
+
+          <button
+            className="random__btn"
+            onClick={onClick}
+          >
+            Random
+          </button>
+        </div>
       </div>
     </section>
   );

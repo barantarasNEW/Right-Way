@@ -1,0 +1,8 @@
+@import '../../styles/utils/mixins';
+
+.top {
+  &__list {
+    flex-direction: column;
+    @include flexAlignCenter(35px);
+  }
+}

@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice} from "@reduxjs/toolkit";
-import { RootState } from "../redux/store";
 import { User } from "../types/User";
 
 interface UserState {
@@ -17,7 +16,7 @@ const initialState: UserState = {
   isSigned: false
 };
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -31,5 +30,4 @@ export const userSlice = createSlice({
 });
 
 export const { setIsSigned, setUser } = userSlice.actions;
-export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

@@ -8,7 +8,5 @@ export const getAdditionalUserData = async (uid: string) => {
 
   return getDoc(id).then((doc) => {
      return doc.data() as UserAdditionalData;
-  }).catch((error) => {
-    console.log(error);
-  });
+  }).catch(error => console.log(error));
 };

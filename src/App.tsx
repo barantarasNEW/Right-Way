@@ -1,6 +1,5 @@
-import { Navigate, Route, Routes } from 'react-router';
 import { lazy } from 'react';
-import Country from './pages/Country/Country';
+import { Navigate, Route, Routes } from 'react-router';
 
 const Home = lazy(() => import('./pages/Home/Home'));
 const Layout = lazy(() => import('./components/Layout/Layout'));
@@ -9,6 +8,7 @@ const Random = lazy(() => import('./pages/Random/Random'));
 const Quiz = lazy(() => import('./pages/Quiz/Quiz'));
 const User = lazy(() => import('./pages/User/User'));
 const Auth = lazy(() => import('./pages/Auth/Auth'));
+const Country = lazy(() => import('./pages/Country/Country'));
 
 const App = () => {
   return (

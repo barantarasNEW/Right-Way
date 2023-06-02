@@ -3,9 +3,8 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import './styles/style.scss';
-import App from './App';
 
-console.log(process.env.API_URL);
+import App from './App';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(

@@ -1,1 +1,0 @@
-.quiz__list{display:flex;align-items:center;justify-content:center;gap:20px}.quiz__title{margin-bottom:40px;font-size:40px;text-align:center}.quiz__flag{height:100px}.quiz__correct,.quiz__in-correct{width:200px;padding:10px;text-align:center;border:1px solid #adff2f;position:absolute;bottom:0;right:0}.quiz__in-correct{border:1px solid red}

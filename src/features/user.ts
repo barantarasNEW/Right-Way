@@ -3,7 +3,6 @@ import { User } from "../types/User";
 
 interface UserState {
   user: User;
-  isSigned: boolean;
 }
 
 const initialState: UserState = {
@@ -12,8 +11,7 @@ const initialState: UserState = {
     lastName: "",
     email: "",
     password: "",
-  },
-  isSigned: false
+  }
 };
 
 const userSlice = createSlice({
@@ -22,12 +20,9 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
-    },
-    setIsSigned: (state, action: PayloadAction<boolean>) => {
-      state.isSigned = action.payload;
     }
   }
 });
 
-export const { setIsSigned, setUser } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 export default userSlice.reducer;

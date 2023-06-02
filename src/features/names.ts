@@ -1,20 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCountriesName } from "../api/getCountriesName";
 
-interface countriesName {
-  names: any[];
+import { getNames } from "../api/getNames";
+
+interface names {
+  names: string[];
   loading: boolean;
   error: string;
 }
 
-const initialState: countriesName = {
+const initialState: names = {
   names: [],
   loading: false,
   error: ""
 };
 
-const countriesNameSlice = createSlice({
-  name: 'countriesName',
+const namesSlice = createSlice({
+  name: 'names',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -34,7 +35,5 @@ const countriesNameSlice = createSlice({
   }
 });
 
-export default countriesNameSlice.reducer;
-export const init = createAsyncThunk("countriesName/fetch", () => {
-  return fetchCountriesName();
-});
+export default namesSlice.reducer;
+export const init = createAsyncThunk("names/fetch", () => getNames());

@@ -1,6 +1,7 @@
 import './Card.scss';
 
 import { Country } from '../../types/Country';
+import { Link, useLocation } from 'react-router-dom';
 
 type Props = {
   country: Country;
@@ -8,16 +9,9 @@ type Props = {
 
 export const Card: React.FC<Props> = ({ country: {
   name,
-  region,
-  capital,
   flag,
-  population
 } }) => {
-  const data = [
-    { title: 'Capital:', text: capital },
-    { title: 'Region:', text: region },
-    { title: 'Population:', text: population },
-  ];
+  const location = useLocation().pathname;
 
   return (
     <div className="card">
@@ -27,19 +21,12 @@ export const Card: React.FC<Props> = ({ country: {
         {name}
       </h2>
 
-      <ul className="card__descriptions">
-        {data.map(({ title, text }) => (
-          <li key={title} className="card__description">
-            <p className="card__description__title">
-              {title}
-            </p>
-
-            <p className="card__description__text">
-              {text}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <Link
+        className="card__link"
+        to={`${location}/${name}`}
+      >
+        View more
+      </Link>
     </div>
   );
 };

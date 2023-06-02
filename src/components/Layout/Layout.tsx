@@ -21,7 +21,7 @@ const Layout = () => {
   const { loading } = useAppSelector(state => state.names);
   const location = useLocation().pathname;
   const navigate = useNavigate();
-  
+
   const [isSearch, setSearch] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
@@ -41,7 +41,8 @@ const Layout = () => {
             };
 
             dispatch(setUser(result as User));
-          }).finally(() => setIsLoadingData(false));
+          }).catch(error => console.log(error))
+          .finally(() => setIsLoadingData(false));
 
         if (location === '/signUp' || location === '/signIn') {
           navigate("/");

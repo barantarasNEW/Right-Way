@@ -4,14 +4,14 @@ import './Home.scss';
 import { useAppSelector } from '../../hooks/useRedux';
 
 const Home = () => {
-  const userName = useAppSelector(state => state.user);
+  const user = useAppSelector(state => state.user).user;
 
   return (
     <section className="home">
       <div className="container">
         <div className="home__wrapper">
           <h1 className="title home__title">
-            {`Welcome, ${userName.user.firstName}`}
+            {`Welcome, ${user.firstName}`}
           </h1>
   
           <p className="home__subtitle">

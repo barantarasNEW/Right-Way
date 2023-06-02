@@ -4,7 +4,7 @@ import { getAuth, signOut, updateEmail, updatePassword } from "firebase/auth";
 import './User.scss';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setIsSigned, setUser } from '../../features/user';
+import { setUser } from '../../features/user';
 import { updateAdditionalUserData } from '../../helpers/updateAdditionalUserData';
 
 import Loader from '../../components/Loader/Loader';
@@ -68,7 +68,7 @@ const User = () => {
         password: "", 
         email: "" 
       }));
-      dispatch(setIsSigned(false));
+      
       navigate('/signIn');
     }).catch((error) => {
       console.log(error);

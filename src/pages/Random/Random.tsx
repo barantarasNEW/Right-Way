@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import random from 'lodash.random';
 import './Random.scss';
 
-import { fetchCountry } from "../../api/getCountry";
+import { getCountry } from "../../api/getCountry";
 import { useAppSelector } from "../../hooks/useRedux";
 import { Country } from "../../types/Country";
 
@@ -10,40 +10,26 @@ import { Card } from "../../components/Card/Card";
 import Loader from '../../components/Loader/Loader';
 
 const Random = () => {
-  const { names } = useAppSelector(state => state.countriesName);
+  const { names } = useAppSelector(state => state.names);
   const [country, setCountry] = useState<Country | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   
-  const FIELDS = "name,capital,population,region,flags";
-
+  useEffect(() => {
+    onClick();
+  }, []);
+ 
+  
   const fetchingCountry = (name: string) => {
     setLoading(true);
 
-    fetchCountry(name, FIELDS)
-      .then(res => {
-        const { region, capital, flags, population } = res[0];
-
-        setCountry({
-          name,
-          region,
-          capital,
-          flag: flags.svg,
-          population
-        });
-      }).catch(() => {
-        setError(true);
-      }).finally(() => setLoading(false));
+    getCountry(name)
+      .then(res => setCountry(res))
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false));
   };
 
-  useEffect(() => {
-    if (names.length) {
-      onClick();
-    }
-  }, []);
- 
   const onClick = useCallback(() => {
-    const name = names[random(names.length - 1)].name.common;
+    const name = names[random(names.length - 1)];
 
     fetchingCountry(name);
   }, []);
@@ -56,7 +42,7 @@ const Random = () => {
     <section className="random">
       <div className="container">
         <div className="random__wrapper">
-          {country && !error && (
+          {country && (
             <Card country={country} />
           )}
 

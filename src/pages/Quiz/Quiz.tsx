@@ -1,44 +1,44 @@
 import { useEffect, useState } from "react";
-import './Quiz.scss';
-import { useAppSelector } from "../../hooks/useRedux";
 import random from "lodash.random";
-import { fetchCountry } from "../../api/getCountry";
+import './Quiz.scss';
+
+import { getCountry } from "../../api/getCountry";
+import { useAppSelector } from "../../hooks/useRedux";
 import { Country } from "../../types/Country";
+import { quizFields } from "../../constants/constants";
+
 import Loader from "../../components/Loader/Loader";
 
 const Quiz = () => {
-  const { names } = useAppSelector(state => state.countriesName);
+  const { names } = useAppSelector(state => state.names);
+
   const [countries, setCountries] = useState<Country[]>([]);
   const [mainName, SetMainName] = useState('');
   const [loading, setLoading] = useState(true);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isInCorrect, setIsIncorrect] = useState(false);
 
-  const FIELDS = "name,flags";
-  
-  const fetchingQuizCountry = async () => {
-    setLoading(true);
-
-    const resultName = [];
-
-    for (let i = 0; i < 4; i++) {
-      resultName.push(names[random(names.length)].name.common);
-    }
-
-    const result = resultName.map(country => fetchCountry(country, FIELDS));
-    const response = await Promise.all(result);
-    const data: Country[] = [];
-
-    response.forEach(value => data.push(value[0]));
-
-    setCountries(data);
-    SetMainName(resultName[random(3)]);
-    setLoading(false);
-  };
-
   useEffect(() => {
     fetchingQuizCountry();
   }, []);
+
+  const fetchingQuizCountry = async () => {
+    setIsCorrect(false);
+    setLoading(true);
+
+    const countriesName = [];
+
+    for (let i = 0; i < 4; i++) {
+      countriesName.push(names[random(names.length)]);
+    }
+
+    const result = countriesName.map(country => getCountry(country, quizFields));
+    const response = await Promise.all(result);
+
+    setCountries(response.flat());
+    SetMainName(countriesName[random(3)]);
+    setLoading(false);
+  };
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -67,7 +67,7 @@ const Quiz = () => {
       setIsIncorrect(true);
 
       setCountries(currCountries => currCountries
-        .filter((country: any) => country.name.common !== value));
+        .filter(country => country.name !== value));
     }
   };
 
@@ -81,16 +81,16 @@ const Quiz = () => {
         <h2 className="quiz__title">{mainName}</h2>
         
         <ul className="quiz__list">
-          {countries.map((country: any) => (
-            <li key={country.name.common} className="quiz__item">
+          {countries.map(country => (
+            <li key={country.name} className="quiz__item">
               <button
                 className="quiz__btn"
-                onClick={() => onClick(country.name.common)}
+                onClick={() => onClick(country.name)}
                 disabled={isCorrect || isInCorrect}
               >
                 <img
                   className="quiz__flag"
-                  src={country.flags.svg}
+                  src={country.flag}
                   alt="icon"
                 />
               </button>

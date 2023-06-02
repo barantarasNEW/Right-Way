@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import './Top.scss';
+
+import { getCountry } from "../../api/getCountry";
 import { Country } from "../../types/Country";
 import { topCountries } from "./constants";
-import { fetchCountry } from "../../api/getCountry";
+
 import Loader from "../../components/Loader/Loader";
 import { Card } from "../../components/Card/Card";
-
-const FIELDS = "name,capital,population,region,flags";
 
 const Top = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetchingCountry();
+  }, []);
+
   const fetchingCountry = async () => {
-    const result = topCountries.map(country => fetchCountry(country, FIELDS));
+    const result = topCountries.map(country => getCountry(country));
     const response = await Promise.all(result);
 
     setCountries(response.flat());
     setLoading(false);
   };
-
-  useEffect(() => {
-    fetchingCountry();
-  }, []);
 
   if (loading) {
     return <Loader />;
@@ -33,13 +33,9 @@ const Top = () => {
       <div className="container">
         <div className="top__wrapper">
           <ul className="top__list">
-            {countries.map((country: any) => (
-              <li key={country.name.common} className="top__item">
-                <Card country={{
-                  ...country,
-                  name: country.name.common,
-                  flag: country.flags.svg
-                }}/>
+            {countries.map(country => (
+              <li key={country.name} className="top__item">
+                <Card country={country}/>
               </li>
             ))}
           </ul>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Card } from "../../components/Card/Card";
-import './Country.scss';
-import { Country as CountryType } from "../../types/Country";
-import Loader from "../../components/Loader/Loader";
 import { useParams } from "react-router";
-import { fetchCountry } from "../../api/getCountry";
+import './Country.scss';
 
-const FIELDS = "name,capital,population,region,flags";
+import { getCountry } from "../../api/getCountry";
+import { Country as CountryType } from "../../types/Country";
+
+import Loader from "../../components/Loader/Loader";
+import { Card } from "../../components/Card/Card";
 
 const Country = () => {
   const [country, setCountry] = useState<CountryType | null>(null);
@@ -17,15 +17,19 @@ const Country = () => {
     if (id) {
       setLoading(true);
 
-      fetchCountry(id, FIELDS)
-        .then((res: any) => {
-          setCountry({ ...res[0], name: res[0].name.common, flag: res[0].flags.svg });
-        }).finally(() => setLoading(false));
+      getCountry(id)
+        .then(res => setCountry(res))
+        .catch(error => console.log(error))
+        .finally(() => setLoading(false));
     }
   }, [id]);
 
-  if (!country || loading) {
+  if (loading) {
     return <Loader />;
+  }
+
+  if (!country) {
+    return <p>Not found</p>;
   }
 
   return (

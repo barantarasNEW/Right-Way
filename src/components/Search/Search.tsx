@@ -12,19 +12,19 @@ import { getSearchWith } from '../../helpers/getSearchWith';
 import { useAppSelector } from '../../hooks/useRedux';
 
 const Search = () => {
-  const location = useLocation().pathname;
-  const validLocation = location === '/' ? '/home' : location;
-  const { names } = useAppSelector(state => state.countriesName);
+  const { names } = useAppSelector(state => state.names);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
-  const inputRef = useRef<HTMLInputElement>(null);
   const deferredQuery = useDeferredValue(query);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const location = useLocation().pathname;
+  const validLocation = location === '/' ? '/home' : location;
 
   const visibleCountries = useMemo(() =>  {
     const reg = new RegExp(`${deferredQuery}.+$`, 'i');
 
     return names.filter(name => {
-      return name.name.common.search(reg) !== -1;
+      return name.search(reg) !== -1;
     });
   }, [deferredQuery, names]);
 
@@ -66,9 +66,9 @@ const Search = () => {
 
       <ul className="search__list">
         {visibleCountries.map(name => (
-          <li key={name.name.common} className="search__item">
-            <Link to={`${validLocation}/${name.name.common}`} className="search__link">
-              {name.name.common}
+          <li key={name} className="search__item">
+            <Link to={`${validLocation}/${name}`} className="search__link">
+              {name}
             </Link>
           </li>
         ))}

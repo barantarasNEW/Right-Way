@@ -36,7 +36,10 @@ const Header: React.FC<Props> = ({ isSearch, setSearch, setToggleSearch }) => {
   };
 
   return (
-    <header className="header" onClick={e => e.stopPropagation()}>
+    <header
+      className="header"
+      onClick={e => e.stopPropagation()}
+    >
       <div className="container">
         <div className="header__wrapper">
           <div className="header__top">

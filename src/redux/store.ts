@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/user";
-import countriesName from "../features/countriesName";
+import namesReducer from "../features/names";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    countriesName: countriesName,
+    names: namesReducer,
   }
 });
 

@@ -15,11 +15,50 @@
   }
 
   &__subtitle {
-    font-size: 32px;
+    font-size: 40px;
   }
 
   &__btn {
-    padding: 8px 15px;
-    border: 2px solid $primaryColor;
+    padding: .5rem 1.25rem;
+    border-radius: 10rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: .15rem;
+    transition-property: color, width;
+    transition-duration: .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      @include square(100%);
+      background-color: $secondaryColor;
+      border-radius: 10rem;
+      z-index: -2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: darken($secondaryColor, 15%);
+      transition: all .3s;
+      border-radius: 10rem;
+      z-index: -1;
+    }
+    
+    &:hover {
+      color: #fff;
+      &:before {
+        width: 100%;
+      }
+    }
   }
 }

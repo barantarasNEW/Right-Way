@@ -35,9 +35,8 @@ const SignIn: React.FC<Props> = ({ setIsLoading }) => {
 
             dispatch(setUser(result as User));
           });
-      }).catch(() => {
-        console.log("Not found user");
-      }).finally(() => setIsLoading(false));
+      }).catch(() => console.log("Not found user"))
+      .finally(() => setIsLoading(false));
   };
 
   return (

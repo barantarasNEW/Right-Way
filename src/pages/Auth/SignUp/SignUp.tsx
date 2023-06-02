@@ -21,7 +21,6 @@ const SignUp: React.FC<Props> = ({ setIsLoading }) => {
   const [errors, setErrors] = useState<AuthErrors[]>([]);
 
   const dispatch = useAppDispatch();
-
   const auth = getAuth(app);
 
   const checkValidInput = () => {
@@ -60,13 +59,12 @@ const SignUp: React.FC<Props> = ({ setIsLoading }) => {
     }
 
     setIsLoading(true);
-    
+
     createUserWithEmailAndPassword(auth, email, password)
       .then(res => {
         dispatch(setUser({ email, password, firstName, lastName }));
         saveAdditionalUserData(res.user.uid, { firstName, lastName, password });
-      })
-      .catch(error => console.log(error))
+      }).catch(error => console.log(error))
       .finally(() => setIsLoading(false));
   };
 

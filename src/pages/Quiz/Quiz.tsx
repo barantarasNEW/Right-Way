@@ -5,7 +5,6 @@ import './Quiz.scss';
 import { getCountry } from "../../api/getCountry";
 import { useAppSelector } from "../../hooks/useRedux";
 import { Country } from "../../types/Country";
-import { quizFields } from "../../constants/constants";
 
 import Loader from "../../components/Loader/Loader";
 
@@ -32,7 +31,7 @@ const Quiz = () => {
       countriesName.push(names[random(names.length)]);
     }
 
-    const result = countriesName.map(country => getCountry(country, quizFields));
+    const result = countriesName.map(country => getCountry(country));
     const response = await Promise.all(result);
 
     setCountries(response.flat());

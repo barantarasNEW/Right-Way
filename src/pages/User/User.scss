@@ -32,6 +32,24 @@
     gap: 10px;
   }
 
+  &__password__wrapper {
+    padding: 0;
+    padding-right: 10px;
+    display: flex;
+  }
+
+  &__password {
+    padding: 0 20px;
+    width: 100%;
+    font-size: inherit;
+    letter-spacing: inherit;
+    background-color: transparent;
+  }
+
+  &__password__icon {
+    width: 25px;
+  }
+
   &__btns {
     align-self: flex-end;
     @include flexAlignCenter(15px);

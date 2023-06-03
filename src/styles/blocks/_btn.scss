@@ -46,6 +46,7 @@
 
   &:disabled {
     background-color: $secondaryColor;
-    cursor: auto;
+    opacity: 0.4;
+    pointer-events: none;
   }
 }

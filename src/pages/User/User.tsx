@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router';
 import { getAuth, signOut, updateEmail, updatePassword } from "firebase/auth";
 import './User.scss';
 
+import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setUser } from '../../features/user';
 import { updateAdditionalUserData } from '../../helpers/updateAdditionalUserData';
 
 import Loader from '../../components/Loader/Loader';
+
+const classInputPassword = (isDisabled: boolean) => cn(
+  "input", "user__password__wrapper", { disabled: isDisabled }
+);
 
 const User = () => {
   const user = useAppSelector(state => state.user.user);
@@ -19,12 +24,14 @@ const User = () => {
   const [password, setPassword] = useState(user.password);
   const [isChange, setIsChange] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const auth = getAuth();
   const navigate = useNavigate();
 
   const onClickSave = async () => {
     setIsLoading(true);
+    setIsShowPassword(false);
 
     if (auth.currentUser) {
       let emailOrPasswordIsChanged;
@@ -60,6 +67,7 @@ const User = () => {
 
   const onClickExit = () => {
     setIsLoading(true);
+    setIsShowPassword(false);
 
     signOut(auth).then(() => {
       dispatch(setUser({
@@ -72,6 +80,10 @@ const User = () => {
       navigate('/signIn');
     }).catch(error => console.log(error))
     .finally(() => setIsLoading(false));
+  };
+
+  const onShowPassword = () => {
+    setIsShowPassword(currValue => !currValue);
   };
 
   return (
@@ -126,13 +138,25 @@ const User = () => {
     
               <label className="user__label">
                 Password
-                <input
-                  className="input"
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  disabled={!isChange}
-                />
+
+                <div
+                  className={classInputPassword(!isChange)}>
+                  <input
+                    className="user__password"
+                    type={isShowPassword ? "text" : "password"}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    disabled={!isChange}
+                  />
+
+                  <button onClick={onShowPassword}>
+                    <img
+                      className="user__password__icon"
+                      src={isShowPassword ? "./img/svg/eye.svg" : "./img/svg/eye-closed.svg"}
+                      alt="icon"
+                    />
+                  </button>
+                </div>
               </label>
             </div>
   

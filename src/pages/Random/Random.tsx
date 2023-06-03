@@ -47,7 +47,7 @@ const Random = () => {
           )}
 
           <button
-            className="random__btn"
+            className="btn"
             onClick={onClick}
           >
             Random

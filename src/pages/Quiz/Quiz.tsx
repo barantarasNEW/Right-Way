@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 import random from "lodash.random";
 import './Quiz.scss';
 
@@ -79,22 +83,30 @@ const Quiz = () => {
       <div className="container">
         <h2 className="quiz__title">{mainName}</h2>
         
-        <ul className="quiz__list">
-          {countries.map(country => (
-            <li key={country.name} className="quiz__item">
-              <button
-                className="quiz__btn"
-                onClick={() => onClick(country.name)}
-                disabled={isCorrect || isInCorrect}
+        <ul>
+          <TransitionGroup className="quiz__list">
+            {countries.map(country => (
+              <CSSTransition
+                key={country.name}
+                timeout={500}
+                classNames="item"
               >
-                <img
-                  className="quiz__flag"
-                  src={country.flag}
-                  alt="icon"
-                />
-              </button>
-            </li>
-          ))}
+                <li className="quiz__item">
+                  <button
+                    className="quiz__btn"
+                    onClick={() => onClick(country.name)}
+                    disabled={isCorrect || isInCorrect}
+                  >
+                    <img
+                      className="quiz__flag"
+                      src={country.flag}
+                      alt="icon"
+                    />
+                  </button>
+                </li>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </ul>
 
         {isCorrect && (

@@ -66,7 +66,7 @@ const Country = () => {
           </ul>
 
           <Link
-            className="country__link"
+            className="btn"
             to={country.map}
             target="_blank"
           >

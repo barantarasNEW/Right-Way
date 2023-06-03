@@ -18,7 +18,7 @@ const Home = () => {
             Let&apos;s start
           </p>
   
-          <Link className="home__btn" to="/random">
+          <Link className="btn" to="/random">
             Start
           </Link>
         </div>

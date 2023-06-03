@@ -22,7 +22,7 @@ export const Card: React.FC<Props> = ({ country: {
       </h2>
 
       <Link
-        className="card__link"
+        className="btn"
         to={`${location}/${name}`}
       >
         View more

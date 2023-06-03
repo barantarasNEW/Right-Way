@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
 import './Header.scss';
@@ -10,6 +10,7 @@ import AdditionalBar from "../AdditionalBar/AdditionalBar";
 import Logo from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
 import Search from '../Search/Search';
+import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 
 type Props = {
   isSearch: boolean;
@@ -19,6 +20,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ isSearch, setSearch, setToggleSearch }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { id } = useParams();
   const location = useLocation().pathname;
 
   useEffect(() => {
@@ -54,9 +56,9 @@ const Header: React.FC<Props> = ({ isSearch, setSearch, setToggleSearch }) => {
           </div>
 
           <div className="header__bottom">
-            {isSearch && (
-              <Search />
-            )} 
+            {isSearch && <Search />}
+
+            {id && <BreadCrumbs />}
           </div>
         </div>
       </div>

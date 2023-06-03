@@ -1,0 +1,11 @@
+@import '../../styles/utils/mixins';
+
+.bread-crumbs__btn {
+  margin-left: 50px;
+  font-size: 30px;
+  @include flexAlignCenter(10px);
+}
+
+.bread-crumbs__icon {
+  width: 35px;
+}

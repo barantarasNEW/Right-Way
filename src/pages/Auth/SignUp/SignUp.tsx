@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import cn from 'classnames';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -22,6 +22,7 @@ const SignUp: React.FC<Props> = ({ setIsLoading }) => {
 
   const dispatch = useAppDispatch();
   const auth = getAuth(app);
+  const navigate = useNavigate();
 
   const checkValidInput = () => {
     const validRegexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -64,12 +65,17 @@ const SignUp: React.FC<Props> = ({ setIsLoading }) => {
       .then(res => {
         dispatch(setUser({ email, password, firstName, lastName }));
         saveAdditionalUserData(res.user.uid, { firstName, lastName, password });
+        navigate("/");
       }).catch(error => console.log(error))
       .finally(() => setIsLoading(false));
   };
 
   return (
-    <form className="sign" autoComplete="true">
+    <form
+      className="sign"
+      autoComplete="true"
+      onSubmit={e => e.preventDefault()}
+    >
       <input
         className={cn(
           "input",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../../config/firebase";
@@ -18,6 +18,7 @@ const SignIn: React.FC<Props> = ({ setIsLoading }) => {
 
   const auth = getAuth(app);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const signIn = () => {
     setIsLoading(true);
@@ -34,13 +35,14 @@ const SignIn: React.FC<Props> = ({ setIsLoading }) => {
             };
 
             dispatch(setUser(result as User));
+            navigate("/");
           });
       }).catch(() => console.log("Not found user"))
       .finally(() => setIsLoading(false));
   };
 
   return (
-    <form className="sign">
+    <form className="sign" onSubmit={e => e.preventDefault()}>
       <input
         className="input"
         type="email"

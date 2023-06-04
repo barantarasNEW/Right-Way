@@ -25,7 +25,6 @@ const Layout = () => {
   const [isSearch, setSearch] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-
   useEffect(() => {
     dispatch(NamesActions.init());
 

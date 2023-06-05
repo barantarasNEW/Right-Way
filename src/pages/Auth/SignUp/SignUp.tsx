@@ -25,37 +25,48 @@ const SignUp: React.FC<Props> = ({ setIsLoading }) => {
   const navigate = useNavigate();
 
   const checkValidInput = () => {
+    let errors: AuthErrors[] = [];
     const validRegexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (firstName.length < 3) {
       setErrors(currErrors => ([ ...currErrors, AuthErrors.FIRSTNAME ]));
+      errors.push(AuthErrors.FIRSTNAME);
     } else {
       setErrors(currErrors => currErrors.filter(currError => currError !== AuthErrors.FIRSTNAME));
+      errors.filter(currErrors => currErrors !== AuthErrors.FIRSTNAME);
     }
 
     if (lastName.length < 3) {
       setErrors(currErrors => ([ ...currErrors, AuthErrors.LASTNAME ]));
+      errors.push(AuthErrors.LASTNAME);
     } else {
       setErrors(currErrors => currErrors.filter(currError => currError !== AuthErrors.LASTNAME));
+      errors.filter(currErrors => currErrors !== AuthErrors.LASTNAME);
     }
 
     if (!email.match(validRegexEmail)) {
       setErrors(currErrors => ([ ...currErrors, AuthErrors.EMAIL ]));
+      errors.push(AuthErrors.EMAIL);
     } else {
       setErrors(currErrors => currErrors.filter(currError => currError !== AuthErrors.EMAIL));
+      errors.filter(currErrors => currErrors !== AuthErrors.EMAIL);
     }
 
     if (password.length < 6) {
       setErrors(currErrors => ([ ...currErrors, AuthErrors.PASSWORD ]));
+      errors.push(AuthErrors.PASSWORD);
     } else {
       setErrors(currErrors => currErrors.filter(currError => currError !== AuthErrors.PASSWORD));
+      errors.filter(currErrors => currErrors !== AuthErrors.PASSWORD);
     }
+
+    return errors;
   };
 
   const signUp = () => {
-    checkValidInput();
+    const innerErrors = checkValidInput();
 
-    if (errors.length) {
+    if (innerErrors.length) {
       return;
     }
 

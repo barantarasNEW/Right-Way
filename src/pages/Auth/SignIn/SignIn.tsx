@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../../hooks/useRedux";
 import { setUser } from "../../../features/user";
 import { getAdditionalUserData } from "../../../helpers/getAdditionalUserData";
 import { User } from "../../../types/User";
+import Modal from "../../../components/Modal/Modal";
 
 type Props = {
   setIsLoading: (value: boolean) => void;
@@ -15,6 +16,7 @@ type Props = {
 const SignIn: React.FC<Props> = ({ setIsLoading }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isNotFoundUser, setIsNotFoundUser] = useState(false);
 
   const auth = getAuth(app);
   const dispatch = useAppDispatch();
@@ -37,44 +39,50 @@ const SignIn: React.FC<Props> = ({ setIsLoading }) => {
             dispatch(setUser(result as User));
             navigate("/");
           });
-      }).catch(() => console.log("Not found user"))
+      }).catch(() => {
+        setIsNotFoundUser(true);
+      })
       .finally(() => setIsLoading(false));
   };
 
   return (
-    <form className="sign" onSubmit={e => e.preventDefault()}>
-      <input
-        className="input"
-        type="email"
-        placeholder="Email"
-        autoComplete="true"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-              
-      <input
-        className="input"
-        type="password"
-        placeholder="Password"
-        autoComplete="true"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-    
-      <button
-        className="btn"
-        onClick={signIn}
-        type="submit"
-      >
-        Sign In
-      </button>
-      <Link
-        className="sign__link"
-        to="/signUp"
-      >
-        Sign Up
-      </Link>
-    </form>
+    <>
+      <form className="sign" onSubmit={e => e.preventDefault()}>
+        <input
+          className="input"
+          type="email"
+          placeholder="Email"
+          autoComplete="true"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+                
+        <input
+          className="input"
+          type="password"
+          placeholder="Password"
+          autoComplete="true"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      
+        <button
+          className="btn"
+          onClick={signIn}
+          type="submit"
+        >
+          Sign In
+        </button>
+        <Link
+          className="sign__link"
+          to="/signUp"
+        >
+          Sign Up
+        </Link>
+      </form>
+
+      {isNotFoundUser && <Modal title="Not found user" />}
+    </>
   );
 };
 

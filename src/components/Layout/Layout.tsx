@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import './Layout.scss';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -17,6 +17,7 @@ import Loader from '../Loader/Loader';
 const Layout = () => {
   const auth = getAuth();
   const dispatch = useAppDispatch();
+  const location = useLocation().pathname;
   const user = useAppSelector(state => state.user).user;
   const { loading } = useAppSelector(state => state.names);
   const navigate = useNavigate();
@@ -40,7 +41,10 @@ const Layout = () => {
               };
   
               dispatch(setUser(result as User));
-              navigate("/");
+
+              if (location === '/signUp' || location === '/signIn') {
+                navigate("/");
+              }
             }).catch(error => console.log(error))
             .finally(() => setIsLoadingData(false));
         } else {

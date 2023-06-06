@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../../config/firebase";
@@ -18,6 +18,7 @@ type Props = {
 const SignUp: React.FC<Props> = ({ setIsLoading, inputCn }) => {
   const dispatch = useAppDispatch();
   const auth = getAuth(app);
+  const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -91,6 +92,7 @@ const SignUp: React.FC<Props> = ({ setIsLoading, inputCn }) => {
       .then(res => {
         dispatch(setUser({ email, password, firstName, lastName }));
         saveAdditionalUserData(res.user.uid, { firstName, lastName, password });
+        navigate("/");
       }).catch(() => setUserInUsed(true))
       .finally(() => setIsLoading(false));
   };

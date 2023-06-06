@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../../config/firebase";
@@ -21,6 +21,7 @@ type Props = {
 const SignIn: React.FC<Props> = ({ setIsLoading, inputCn }) => {
   const auth = getAuth(app);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -67,6 +68,7 @@ const SignIn: React.FC<Props> = ({ setIsLoading, inputCn }) => {
 
             dispatch(setUser(fullData as User));
             setUserNotFound(false);
+            navigate("/");
           });
       }).catch(() => setUserNotFound(true))
       .finally(() => setIsLoading(false));

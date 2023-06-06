@@ -4,7 +4,6 @@
   width: 380px;
   height: 40px;
   padding: 10px 20px;
-  font-size: 23px;
   letter-spacing: 1px;
   border: 1px solid transparent;
   border-radius: 50px;
@@ -16,7 +15,7 @@
     pointer-events: none;
   }
 
-  &--error {
-    border-color: red;
+  &.error {
+    border-color: $errorColor;
   }
 }

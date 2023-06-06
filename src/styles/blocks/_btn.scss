@@ -3,10 +3,10 @@
 
 .btn {
   padding: .5rem 1.25rem;
-  border-radius: 10rem;
-  text-transform: uppercase;
   font-size: 0.75rem;
+  text-transform: uppercase;
   letter-spacing: .15rem;
+  border-radius: 10rem;
   transition-property: color, width;
   transition-duration: .3s;
   position: relative;
@@ -15,30 +15,31 @@
 
   &:after {
     content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
     @include square(100%);
     background-color: $secondaryColor;
     border-radius: 10rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     z-index: -2;
   }
 
   &:before {
     content: '';
+    width: 0%;
+    height: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0%;
-    height: 100%;
     background-color: darken($secondaryColor, 15%);
-    transition: all .3s;
     border-radius: 10rem;
+    transition: all .3s;
     z-index: -1;
   }
   
   &:hover {
     color: #fff;
+
     &:before {
       width: 100%;
     }
@@ -46,7 +47,7 @@
 
   &:disabled {
     background-color: $secondaryColor;
-    opacity: 0.4;
+    opacity: 0.5;
     pointer-events: none;
   }
 }

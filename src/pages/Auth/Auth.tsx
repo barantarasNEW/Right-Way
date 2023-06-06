@@ -7,8 +7,12 @@ import Loader from '../../components/Loader/Loader';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
 
-const authClasses = (isLoading: boolean) => cn(
+const authCn = (isLoading: boolean) => cn(
   "auth", { "auth--dis": isLoading }
+);
+
+const inputCn = (isError: boolean) => cn(
+  "input", { error: isError }
 );
 
 const Auth = () => {
@@ -19,7 +23,7 @@ const Auth = () => {
   return (
     <>
       <section
-        className={authClasses(isLoading)}
+        className={authCn(isLoading)}
         style={{ backgroundImage: "url(./img/main2.jpg)" }}
       >
         <div className="container">
@@ -31,8 +35,8 @@ const Auth = () => {
             </h1>
   
             {isSignUp
-              ? <SignUp setIsLoading={setIsLoading} />
-              : <SignIn setIsLoading={setIsLoading} />}
+              ? <SignUp setIsLoading={setIsLoading} inputCn={inputCn} />
+              : <SignIn setIsLoading={setIsLoading} inputCn={inputCn} />}
           </div>
         </div>
       </section>

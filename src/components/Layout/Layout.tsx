@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import './Layout.scss';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -19,7 +19,6 @@ const Layout = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user).user;
   const { loading } = useAppSelector(state => state.names);
-  const location = useLocation().pathname;
   const navigate = useNavigate();
 
   const [isSearch, setSearch] = useState(false);
@@ -28,28 +27,27 @@ const Layout = () => {
   useEffect(() => {
     dispatch(NamesActions.init());
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getAdditionalUserData(user.uid)
-          .then(data => {
-            const result = {
-              email: user.email,
-              password: data?.password,
-              firstName: data?.firstName,
-              lastName: data?.lastName,
-            };
-
-            dispatch(setUser(result as User));
-          }).catch(error => console.log(error))
-          .finally(() => setIsLoadingData(false));
-
-        if (location === '/signUp' || location === '/signIn') {
-          navigate("/");
+    if (!user.email.length) {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          getAdditionalUserData(user.uid)
+            .then(data => {
+              const result = {
+                email: user.email,
+                password: data?.password,
+                firstName: data?.firstName,
+                lastName: data?.lastName,
+              };
+  
+              dispatch(setUser(result as User));
+              navigate("/");
+            }).catch(error => console.log(error))
+            .finally(() => setIsLoadingData(false));
+        } else {
+          setIsLoadingData(false);
         }
-      } else {
-        setIsLoadingData(false);
-      }
-    });
+      });
+    }
   }, []);
 
   const setToggleSearch = () => setSearch(currSearch => !currSearch);

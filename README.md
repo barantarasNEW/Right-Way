@@ -5,6 +5,7 @@
 ## **Under development...**
 + Photos of popular places in the country
 + Favorite countries that will be stored in the database
++ Languages: UK & ENG
 + App for mobile and tablet
 
 ## **Technologies**

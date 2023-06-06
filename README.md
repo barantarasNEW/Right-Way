@@ -2,6 +2,10 @@
 
 **[DEMO LINK](https://barantarasnew.github.io/Right-Way/)**
 
+## **Under development...**
++ Photos of popular places in the country
++ Favorite countries that will be stored in the database
+
 ## **Technologies**
 + webpack
 + firebase
